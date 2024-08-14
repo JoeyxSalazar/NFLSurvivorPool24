@@ -1,0 +1,2 @@
+['Bengals', 'Commanders', 'Packers', 'Jets', 'Seahawks', 'Ravens', 'Bills', 'Steelers', 'Titans', 'Giants', 'Lions', 'Chiefs', 'Cowboys', 'Buccaneers'] (203.0,)
+['Bengals', 'Steelers', 'Packers', 'Cowboys', 'Bears', 'Texans', 'Bills', 'Jets', 'Ravens', '49ers', 'Eagles', 'Chiefs', 'Browns'] (269.0,)
