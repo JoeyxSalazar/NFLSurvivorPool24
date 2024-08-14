@@ -121,8 +121,8 @@ def main():
     # Output the best team selection strategy
     best_strategy = tools.selBest(best_ind, k=5)[0]
     print("Best Survivor Strategy:")
-    print(best_strategy, best_strategy.fitness.values)
     print(len(best_strategy))
+    print(best_strategy, best_strategy.fitness.values)
 
 if __name__ == "__main__":
     main()
