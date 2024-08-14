@@ -99,7 +99,7 @@ def main():
     creator.create("Individual", list, fitness=creator.FitnessMax)
 
     toolbox = base.Toolbox()
-    weeks = 10  # Number of weeks in the survivor pool
+    weeks = 11  # Number of weeks in the survivor pool
     toolbox.register("indices", random.sample, list(preseason_rankings.values()), weeks)
     toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.indices)
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
@@ -115,15 +115,14 @@ def main():
     cxpb = 0.7  # Crossover probability
     mutpb = 0.4 # Mutation probability
 
-    for i in range(10):
-        # Applying the genetic algorithm
-        best_ind = algorithms.eaSimple(population, toolbox, cxpb, mutpb, ngen, verbose=False)[0]
-
-        # Output the best team selection strategy
-        best_strategy = tools.selBest(best_ind, k=1)[0]
-        print("Best Survivor Strategy:")
-        print(len(best_strategy))
-        print(best_strategy, best_strategy.fitness.values)
+    
+    # Applying the genetic algorithm
+    best_ind = algorithms.eaSimple(population, toolbox, cxpb, mutpb, ngen, verbose=False)[0]
+    # Output the best team selection strategy
+    best_strategy = tools.selBest(best_ind, k=1)[0]
+    print("Best Survivor Strategy:")
+    print(len(best_strategy))
+    print(best_strategy, best_strategy.fitness.values)
 
 if __name__ == "__main__":
     main()
