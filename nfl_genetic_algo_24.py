@@ -99,7 +99,7 @@ def main():
     creator.create("Individual", list, fitness=creator.FitnessMax)
 
     toolbox = base.Toolbox()
-    weeks = 13  # Number of weeks in the survivor pool
+    weeks = 10  # Number of weeks in the survivor pool
     toolbox.register("indices", random.sample, list(preseason_rankings.values()), weeks)
     toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.indices)
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)

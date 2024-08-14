@@ -1,5 +1,13 @@
-12 Weeks:
+10 Weeks (Theoretically, highest score is 267):
+['Bengals', 'Lions', 'Browns', '49ers', 'Bears', 'Texans', 'Eagles', 'Jets', 'Ravens', 'Chiefs'] (226.0,)
+84% to best score
+
+11 Weeks (Theoretically, highest score is 290):
+
+
+12 Weeks (Theoretically, highest score is 312):
 ['Bengals', 'Chargers', 'Jets', '49ers', 'Dolphins', 'Texans', 'Eagles', 'Lions', 'Ravens', 'Chiefs', 'Falcons', 'Cowboys'] (258.0,)
+82% to best score
 
 13 Weeks: (Theoretically, highest score is 333)
 ['Bills', '49ers', 'Jets', 'Bengals', 'Dolphins', 'Falcons', 'Jaguars', 'Lions', 'Ravens', 'Chiefs', 'Eagles', 'Texans', 'Browns'] (266.0,)
@@ -7,6 +15,7 @@
 ['Bills', 'Steelers', 'Packers', 'Bengals', '49ers', 'Texans', 'Lions', 'Jets', 'Ravens', 'Chiefs', 'Eagles', 'Dolphins', 'Cowboys'] (273.0,)
 ['Bills', 'Jets', 'Packers', 'Bengals', '49ers', 'Texans', 'Eagles', 'Lions', 'Ravens', 'Chiefs', 'Dolphins', 'Cowboys', 'Browns'] (276.0,)
 ['Bengals', 'Steelers', 'Jets', '49ers', 'Dolphins', 'Texans', 'Eagles', 'Lions', 'Ravens', 'Chiefs', 'Falcons', 'Cowboys', 'Browns'] (279.0,)
+83% to best score
 
 14 Weeks:
 ['Bengals', 'Commanders', 'Packers', 'Jets', 'Seahawks', 'Ravens', 'Bills', 'Steelers', 'Titans', 'Giants', 'Lions', 'Chiefs', 'Cowboys', 'Buccaneers'] (203.0,)
