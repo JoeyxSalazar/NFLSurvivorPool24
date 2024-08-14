@@ -1,3 +1,12 @@
-['Bengals', 'Commanders', 'Packers', 'Jets', 'Seahawks', 'Ravens', 'Bills', 'Steelers', 'Titans', 'Giants', 'Lions', 'Chiefs', 'Cowboys', 'Buccaneers'] (203.0,)
-['Bengals', 'Steelers', 'Packers', 'Cowboys', 'Bears', 'Texans', 'Bills', 'Jets', 'Ravens', '49ers', 'Eagles', 'Chiefs', 'Browns'] (269.0,)
+12 Weeks:
 ['Bengals', 'Chargers', 'Jets', '49ers', 'Dolphins', 'Texans', 'Eagles', 'Lions', 'Ravens', 'Chiefs', 'Falcons', 'Cowboys'] (258.0,)
+
+13 Weeks: (Theoretically, highest score is 333)
+['Bills', '49ers', 'Jets', 'Bengals', 'Dolphins', 'Falcons', 'Jaguars', 'Lions', 'Ravens', 'Chiefs', 'Eagles', 'Texans', 'Browns'] (266.0,)
+['Bengals', 'Steelers', 'Packers', 'Cowboys', 'Bears', 'Texans', 'Bills', 'Jets', 'Ravens', '49ers', 'Eagles', 'Chiefs', 'Browns'] (269.0,)
+['Bills', 'Steelers', 'Packers', 'Bengals', '49ers', 'Texans', 'Lions', 'Jets', 'Ravens', 'Chiefs', 'Eagles', 'Dolphins', 'Cowboys'] (273.0,)
+['Bills', 'Jets', 'Packers', 'Bengals', '49ers', 'Texans', 'Eagles', 'Lions', 'Ravens', 'Chiefs', 'Dolphins', 'Cowboys', 'Browns'] (276.0,)
+['Bengals', 'Steelers', 'Jets', '49ers', 'Dolphins', 'Texans', 'Eagles', 'Lions', 'Ravens', 'Chiefs', 'Falcons', 'Cowboys', 'Browns'] (279.0,)
+
+14 Weeks:
+['Bengals', 'Commanders', 'Packers', 'Jets', 'Seahawks', 'Ravens', 'Bills', 'Steelers', 'Titans', 'Giants', 'Lions', 'Chiefs', 'Cowboys', 'Buccaneers'] (203.0,)

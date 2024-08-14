@@ -110,19 +110,20 @@ def main():
     toolbox.register("select", tools.selTournament, tournsize=3)
 
     # Running the Genetic Algorithm
-    population = toolbox.population(n=500)
-    ngen = 500
+    population = toolbox.population(n=2000)
+    ngen = 750
     cxpb = 0.7  # Crossover probability
-    mutpb = 0.2  # Mutation probability
+    mutpb = 0.4 # Mutation probability
 
-    # Applying the genetic algorithm
-    best_ind = algorithms.eaSimple(population, toolbox, cxpb, mutpb, ngen, verbose=False)[0]
+    for i in range(10):
+        # Applying the genetic algorithm
+        best_ind = algorithms.eaSimple(population, toolbox, cxpb, mutpb, ngen, verbose=False)[0]
 
-    # Output the best team selection strategy
-    best_strategy = tools.selBest(best_ind, k=5)[0]
-    print("Best Survivor Strategy:")
-    print(len(best_strategy))
-    print(best_strategy, best_strategy.fitness.values)
+        # Output the best team selection strategy
+        best_strategy = tools.selBest(best_ind, k=1)[0]
+        print("Best Survivor Strategy:")
+        print(len(best_strategy))
+        print(best_strategy, best_strategy.fitness.values)
 
 if __name__ == "__main__":
     main()
