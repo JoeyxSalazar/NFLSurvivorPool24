@@ -2,6 +2,8 @@ Theoretical Score is based calculated as such:
 (32 -1) + (32 - 2) + (32 - 3) ... 
 In this example, grabbing the next highest rank as if they played the lowest rank each week
 
+******************Scores without a Bye Week***************************************************
+
 8 Weeks (Theoretically, highest score is 220):
 
 9 Weeks (Theoretically, highest score is 243):
@@ -30,3 +32,14 @@ In this example, grabbing the next highest rank as if they played the lowest ran
 ['Bengals', 'Commanders', 'Packers', 'Jets', 'Seahawks', 'Ravens', 'Bills', 'Steelers', 'Titans', 'Giants', 'Lions', 'Chiefs', 'Cowboys', 'Buccaneers'] (203.0,)
 ['Bills', 'Lions', 'Packers', '49ers', 'Browns', 'Bengals', 'Rams', 'Jets', 'Ravens', 'Chiefs', 'Dolphins', 'Cowboys', 'Colts', 'Eagles'] (277.0,)
 80.75% to perfect
+
+
+**********************************With a Bye Week Selection *******************************************************************************
+11 weeks:
+['Bengals', None, 'Packers', 'Cowboys', '49ers', 'Texans', 'Eagles', 'Lions', 'Ravens', 'Chiefs', 'Falcons'] (257.0,)
+
+12 weeks:
+['Bills', 'Lions', 'Packers', '49ers', 'Dolphins', 'Bengals', 'Eagles', 'Jets', 'Ravens', 'Chiefs', None, 'Cowboys'] (270.0,)
+
+13 weeks:
+['Bengals', 'Lions', 'Packers', '49ers', 'Dolphins', 'Texans', 'Eagles', 'Jets', 'Ravens', None, 'Falcons', 'Chiefs', 'Cowboys'] (294.0,)

@@ -72,7 +72,14 @@ def print_schedule():
 def eval_survivor(individual):
     fitness = 0
     used_teams = set()
+    bye_week_used = False
     for week, team in enumerate(individual, 1):
+        if team == None:
+            if bye_week_used:
+                return -1000,
+            bye_week_used = True
+            fitness += 30  # Increase for using a bye week
+            continue
         if team in used_teams:
             return -1000,  # Immediate penalty for reusing a team
         matchups = nfl_schedule[week]
@@ -99,8 +106,8 @@ def main():
     creator.create("Individual", list, fitness=creator.FitnessMax)
 
     toolbox = base.Toolbox()
-    weeks = 11  # Number of weeks in the survivor pool
-    toolbox.register("indices", random.sample, list(preseason_rankings.values()), weeks)
+    weeks = 13       # Number of weeks in the survivor pool
+    toolbox.register("indices", random.sample, list(preseason_rankings.values()) + [None], weeks)
     toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.indices)
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
