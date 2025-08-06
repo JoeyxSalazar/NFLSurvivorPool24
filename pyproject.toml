@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "nflsurvivorpool24"
+version = "0.1.0"
+description = "Select a team each week to win their match-up. Once a team is selected, they cannot be used in future weeks as your pick. If your pick loses, you are out of the pool."
+authors = ["joeyxsalazar <salazarxjoey@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+numpy = "^2.3.2"
+deap = "^1.4.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

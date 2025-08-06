@@ -1,46 +1,3 @@
-import random
-import numpy as np
-from deap import base, creator, tools, algorithms
-
-# Example preseason rankings (1 is the best team, 32 is the worst)
-preseason_rankings = {
-                        1: "49ers",
-                        2: "Chiefs",
-                        3: "Lions",
-                        4: "Ravens",
-                        5: "Bengals",
-                        6: "Eagles",
-                        7: "Texans",
-                        8: "Bills",
-                        9: "Packers",
-                        10: "Cowboys",
-                        11: "Jets",
-                        12: "Dolphins",
-                        13: "Browns",
-                        14: "Falcons",
-                        15: "Bears",
-                        16: "Rams",
-                        17: "Steelers",
-                        18: "Colts",
-                        19: "Jaguars",
-                        20: "Seahawks",
-                        21: "Chargers",
-                        22: "Vikings",
-                        23: "Buccaneers",
-                        24: "Saints",
-                        25: "Cardinals",
-                        26: "Titans",
-                        27: "Raiders",
-                        28: "Commanders",
-                        29: "Patriots",
-                        30: "Giants",
-                        31: "Broncos",
-                        32: "Panthers"
-                    }
-#Reverse dictionary for easier lookups
-rank_to_team = {team: rank for rank, team in preseason_rankings.items()}
-# Example structure for NFL schedule (week 1-18)
-nfl_schedule = {
     1 : [("Ravens", "Chiefs" ),("Packers", "Eagles" ),("Patriots", "Bengals" ),("Texans", "Colts" ),("Steelers", "Falcons" ),("Jaguars", "Dolphins" ),("Vikings", "Giants" ),("Cardinals", "Bills" ),("Panthers", "Saints" ),("Titans", "Bears" ),("Broncos", "Seahawks" ),("Raiders", "Chargers" ),("Commanders", "Buccaneers" ),("Cowboys", "Browns" ),("Rams", "Lions" ),("Jets", "49ers" )],
     2: [("Bills", "Dolphins" ),("Raiders", "Ravens" ),("Chargers", "Panthers" ),("Browns", "Jaguars" ),("Seahawks", "Patriots" ),("Colts", "Packers" ),("49ers", "Vikings" ),("Buccaneers", "Lions" ),("Giants", "Commanders" ),("Saints", "Cowboys" ),("Jets", "Titans" ),("Rams", "Cardinals" ),("Bengals", "Chiefs" ),("Steelers", "Broncos" ),("Bears", "Texans" ),("Falcons", "Eagles" )],
     3: [("Patriots", "Jets" ),("Packers", "Titans" ),("Eagles", "Saints" ),("Texans", "Vikings" ),("Giants", "Browns" ),("Chargers", "Steelers" ),("Broncos", "Buccaneers" ),("Bears", "Colts" ),("Panthers", "Raiders" ),("Dolphins", "Seahawks" ),("Lions", "Cardinals" ),("Ravens", "Cowboys" ),("49ers", "Rams" ),("Chiefs", "Falcons" ),("Jaguars", "Bills" ),("Commanders", "Bengals" )],
@@ -55,81 +12,49 @@ nfl_schedule = {
     12: [('Steelers', 'Browns'),('Lions', 'Colts'),('Buccaneers', 'Giants'),('Vikings', 'Bears'),('Chiefs', 'Panthers'),('Cowboys', 'Commanders'),('Patriots', 'Dolphins'),('Titans', 'Texans'),('Broncos', 'Raiders'),('49ers', 'Packers'),('Cardinals', 'Seahawks'),('Eagles', 'Rams'),('Ravens', 'Chargers')],
     13: [('Bears', 'Lions'),('Giants', 'Cowboys'),('Dolphins', 'Packers'),('Raiders', 'Chiefs'),('Colts', 'Patriots'),('Texans', 'Jaguars'),('Cardinals', 'Vikings'),('Chargers', 'Falcons'),('Seahawks', 'Jets'),('Titans', 'Commanders'),('Steelers', 'Bengals'),('Rams', 'Saints'),('Buccaneers', 'Panthers'),('Eagles', 'Ravens'),('49ers', 'Bills'),('Browns', 'Broncos')],
     14: [('Packers', 'Lions'),('Browns', 'Steelers'),('Raiders', 'Buccaneers'),('Panthers', 'Eagles'),('Falcons', 'Vikings'),('Jets', 'Dolphins'),('Jaguars', 'Titans'),('Saints', 'Giants'),('Seahawks', 'Cardinals'),('Bills', 'Rams'),('Bears', '49ers'),('Chargers', 'Chiefs'),('Bengals', 'Cowboys')],
-    15: [],
-    16: [],
-    17: [],
-}
-def get_rank(team_name):
-    return rank_to_team.get(team_name, 'N/A')
 
-# Fitness function: sum of ranking discrepancies
-def print_schedule():
-    for week, matchups in nfl_schedule.items():
-        print(f"Week {week}:")
-        for (t1, t2) in matchups:
-            print(f"{t1}, Rank: {get_rank(t1)} vs {t2}, Rank: {get_rank(t2)}")
-        
-def eval_survivor(individual):
-    fitness = 0
-    used_teams = set()
-    bye_week_used = False
-    for week, team in enumerate(individual, 1):
-        if team == None:
-            if bye_week_used:
-                return -1000,
-            bye_week_used = True
-            fitness += 30  # Increase for using a bye week
-            continue
-        if team in used_teams:
-            return -1000,  # Immediate penalty for reusing a team
-        matchups = nfl_schedule[week]
-        opponent = None
-        for (t1, t2) in matchups:
-            if t1 == team:
-                opponent = t2
-                break
-            elif t2 == team:
-                opponent = t1
-                break
-        if opponent is None:
-            return -1000,
-        opponent_rank = get_rank(opponent)
-        team_rank = get_rank(team)
-        #print(f"Week {week}: {team} vs {opponent} (Team Rank: {team_rank}, Opponent Rank: {opponent_rank})")
-        fitness += (opponent_rank - team_rank)  # Positive value means a better team selected
-        used_teams.add(team)
-    return fitness,
+Theoretical Score is based calculated as such:
+(32 -1) + (32 - 2) + (32 - 3) ... 
+In this example, grabbing the next highest rank as if they played the lowest rank each week
 
-def main():
-    # Genetic Algorithm Setup
-    creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-    creator.create("Individual", list, fitness=creator.FitnessMax)
+******************Scores without a Bye Week***************************************************
 
-    toolbox = base.Toolbox()
-    weeks = 13       # Number of weeks in the survivor pool
-    toolbox.register("indices", random.sample, list(preseason_rankings.values()) + [None], weeks)
-    toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.indices)
-    toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+8 Weeks (Theoretically, highest score is 220):
 
-    toolbox.register("evaluate", eval_survivor)
-    toolbox.register("mate", tools.cxOnePoint)
-    toolbox.register("mutate", tools.mutShuffleIndexes, indpb=0.05)
-    toolbox.register("select", tools.selTournament, tournsize=3)
+9 Weeks (Theoretically, highest score is 243):
 
-    # Running the Genetic Algorithm
-    population = toolbox.population(n=2000)
-    ngen = 750
-    cxpb = 0.7  # Crossover probability
-    mutpb = 0.4 # Mutation probability
+10 Weeks (Theoretically, highest score is 265):
+['Bengals', 'Lions', 'Browns', '49ers', 'Bears', 'Texans', 'Eagles', 'Jets', 'Ravens', 'Chiefs'] (226.0,)
+85.28% to best score
 
-    
-    # Applying the genetic algorithm
-    best_ind = algorithms.eaSimple(population, toolbox, cxpb, mutpb, ngen, verbose=False)[0]
-    # Output the best team selection strategy
-    best_strategy = tools.selBest(best_ind, k=1)[0]
-    print("Best Survivor Strategy:")
-    print(len(best_strategy))
-    print(best_strategy, best_strategy.fitness.values)
+11 Weeks (Theoretically, highest score is 286):
+['Bengals', 'Cowboys', 'Jets', '49ers', 'Dolphins', 'Texans', 'Eagles', 'Lions', 'Ravens', 'Chiefs', 'Falcons'] (243.0,)
+84.97% to best score
 
-if __name__ == "__main__":
-    main()
+12 Weeks (Theoretically, highest score is 306):
+['Bengals', 'Chargers', 'Jets', '49ers', 'Dolphins', 'Texans', 'Eagles', 'Lions', 'Ravens', 'Chiefs', 'Falcons', 'Cowboys'] (258.0,)
+84.31% to best score
+
+13 Weeks: (Theoretically, highest score is 325)
+['Bills', '49ers', 'Jets', 'Bengals', 'Dolphins', 'Falcons', 'Jaguars', 'Lions', 'Ravens', 'Chiefs', 'Eagles', 'Texans', 'Browns'] (266.0,)
+['Bengals', 'Steelers', 'Packers', 'Cowboys', 'Bears', 'Texans', 'Bills', 'Jets', 'Ravens', '49ers', 'Eagles', 'Chiefs', 'Browns'] (269.0,)
+['Bills', 'Steelers', 'Packers', 'Bengals', '49ers', 'Texans', 'Lions', 'Jets', 'Ravens', 'Chiefs', 'Eagles', 'Dolphins', 'Cowboys'] (273.0,)
+['Bills', 'Jets', 'Packers', 'Bengals', '49ers', 'Texans', 'Eagles', 'Lions', 'Ravens', 'Chiefs', 'Dolphins', 'Cowboys', 'Browns'] (276.0,)
+['Bengals', 'Steelers', 'Jets', '49ers', 'Dolphins', 'Texans', 'Eagles', 'Lions', 'Ravens', 'Chiefs', 'Falcons', 'Cowboys', 'Browns'] (279.0,)
+85.85% to best score
+
+14 Weeks (Theoretically, highest score is 343):
+['Bengals', 'Commanders', 'Packers', 'Jets', 'Seahawks', 'Ravens', 'Bills', 'Steelers', 'Titans', 'Giants', 'Lions', 'Chiefs', 'Cowboys', 'Buccaneers'] (203.0,)
+['Bills', 'Lions', 'Packers', '49ers', 'Browns', 'Bengals', 'Rams', 'Jets', 'Ravens', 'Chiefs', 'Dolphins', 'Cowboys', 'Colts', 'Eagles'] (277.0,)
+80.75% to perfect
+
+
+**********************************With a Bye Week Selection *******************************************************************************
+11 weeks:
+['Bengals', None, 'Packers', 'Cowboys', '49ers', 'Texans', 'Eagles', 'Lions', 'Ravens', 'Chiefs', 'Falcons'] (257.0,)
+
+12 weeks:
+['Bills', 'Lions', 'Packers', '49ers', 'Dolphins', 'Bengals', 'Eagles', 'Jets', 'Ravens', 'Chiefs', None, 'Cowboys'] (270.0,)
+
+13 weeks:
+['Bengals', 'Lions', 'Packers', '49ers', 'Dolphins', 'Texans', 'Eagles', 'Jets', 'Ravens', None, 'Falcons', 'Chiefs', 'Cowboys'] (294.0,)
