@@ -1,0 +1,3 @@
+Best Survivor Strategy:
+13
+['Commanders', '49ers', 'Packers', 'Bills', 'Vikings', 'Eagles', 'Chiefs', 'Buccaneers', 'Chargers', None, 'Ravens', 'Lions', 'Texans'] (320.0,)
