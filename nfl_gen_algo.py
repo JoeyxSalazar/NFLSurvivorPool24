@@ -4,38 +4,38 @@ from deap import base, creator, tools, algorithms
 
 # Example preseason rankings (1 is the best team, 32 is the worst)
 preseason_rankings = {
-                        1: "49ers",
-                        2: "Chiefs",
-                        3: "Lions",
-                        4: "Ravens",
-                        5: "Bengals",
-                        6: "Eagles",
-                        7: "Texans",
-                        8: "Bills",
-                        9: "Packers",
-                        10: "Cowboys",
-                        11: "Jets",
-                        12: "Dolphins",
-                        13: "Browns",
-                        14: "Falcons",
-                        15: "Bears",
-                        16: "Rams",
-                        17: "Steelers",
-                        18: "Colts",
-                        19: "Jaguars",
-                        20: "Seahawks",
-                        21: "Chargers",
-                        22: "Vikings",
-                        23: "Buccaneers",
-                        24: "Saints",
-                        25: "Cardinals",
-                        26: "Titans",
-                        27: "Raiders",
-                        28: "Commanders",
-                        29: "Patriots",
-                        30: "Giants",
-                        31: "Broncos",
-                        32: "Panthers"
+                        1: "Eagles",
+                        2: "Ravens",
+                        3: "Bills",
+                        4: "Chiefs",
+                        5: "Lions",
+                        6: "Commanders",
+                        7: "Chargers",
+                        8: "Packers",
+                        9: "Rams",
+                        10: "Texans",
+                        11: "49ers",
+                        12: "Broncos",
+                        13: "Buccaneers",
+                        14: "Bengals",
+                        15: "Vikings",
+                        16: "Steelers",
+                        17: "Bears",
+                        18: "Cardinals",
+                        19: "Seahawks",
+                        20: "Cowboys",
+                        21: "Jaguars",
+                        22: "Patriots",
+                        23: "Dolphins",
+                        24: "Falcons",
+                        25: "Raiders",
+                        26: "Panthers",
+                        27: "Jets",
+                        28: "Giants",
+                        29: "Titans",
+                        30: "Colts",
+                        31: "Browns",
+                        32: "Saints"
                     }
 #Reverse dictionary for easier lookups
 rank_to_team = {team: rank for rank, team in preseason_rankings.items()}
@@ -93,9 +93,9 @@ def eval_survivor(individual):
                 break
         if opponent is None:
             return -1000,
-        opponent_rank = get_rank(opponent)
+        #Opponent is at home, lets add a slight gain for that
+        opponent_rank = get_rank(opponent) + 1.5
         team_rank = get_rank(team)
-        #print(f"Week {week}: {team} vs {opponent} (Team Rank: {team_rank}, Opponent Rank: {opponent_rank})")
         fitness += (opponent_rank - team_rank)  # Positive value means a better team selected
         used_teams.add(team)
     return fitness,
