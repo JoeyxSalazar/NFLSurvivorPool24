@@ -100,36 +100,42 @@ def eval_survivor(individual):
         used_teams.add(team)
     return fitness,
 
-def main():
-    # Genetic Algorithm Setup
-    creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-    creator.create("Individual", list, fitness=creator.FitnessMax)
+def main(pop_size: int = 2000,
+         ngen: int = 750,
+         cxpb: float = 0.7,
+         mutpb: float = 0.4,
+         tournsize: int = 3,
+         weeks: int = 13) -> None:
+    
+    random.seed(42)
+
+    if "FitnessMax" not in creator.__dict__:
+        creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+        creator.create("Individual", list, fitness=creator.FitnessMax)
 
     toolbox = base.Toolbox()
-    weeks = 13       # Number of weeks in the survivor pool
-    toolbox.register("indices", random.sample, list(preseason_rankings.values()) + [None], weeks)
-    toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.indices)
-    toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+    toolbox.register("indices",
+                     random.sample,
+                     list(preseason_rankings.values()) + [None],
+                     weeks)
+    toolbox.register("individual", tools.initIterate,
+                     creator.Individual, toolbox.indices)
+    toolbox.register("population", tools.initRepeat,
+                     list, toolbox.individual)
 
     toolbox.register("evaluate", eval_survivor)
     toolbox.register("mate", tools.cxOnePoint)
     toolbox.register("mutate", tools.mutShuffleIndexes, indpb=0.05)
-    toolbox.register("select", tools.selTournament, tournsize=3)
+    toolbox.register("select", tools.selTournament, tournsize=tournsize)
 
-    # Running the Genetic Algorithm
-    population = toolbox.population(n=2000)
-    ngen = 750
-    cxpb = 0.7  # Crossover probability
-    mutpb = 0.4 # Mutation probability
+    hof = tools.HallOfFame(1)
+    algorithms.eaSimple(toolbox.population(pop_size),
+                        toolbox, cxpb, mutpb, ngen,
+                        halloffame=hof, verbose=False)
 
-    
-    # Applying the genetic algorithm
-    best_ind = algorithms.eaSimple(population, toolbox, cxpb, mutpb, ngen, verbose=False)[0]
-    # Output the best team selection strategy
-    best_strategy = tools.selBest(best_ind, k=1)[0]
-    print("Best Survivor Strategy:")
-    print(len(best_strategy))
-    print(best_strategy, best_strategy.fitness.values)
+    best_strategy = hof[0]
+    print("Best survivor plan:", best_strategy,
+          best_strategy.fitness.values)
 
 if __name__ == "__main__":
     main()
